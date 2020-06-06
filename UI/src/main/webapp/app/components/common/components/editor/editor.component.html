@@ -1,0 +1,21 @@
+<div>
+    <div [attr.id] = "'quillToolbar'+editorType" class="editorToolbar">
+        <button type="button" class="ql-header editorButtonSpacing" value="3" data-toggle="tooltip" data-placement="bottom" title="Heading">H<sub>3</sub></button>
+        <button type="button" class="ql-header editorButtonSpacing" value="4" data-toggle="tooltip" data-placement="bottom" title="Subheading">H<sub>4</sub></button>
+      
+      <!-- <button [attr.id] ="'quillh1'+editorType" type="button" class="editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="Heading">H1</button>
+      <button  [attr.id] ="'quillh2'+editorType" type="button" class="editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="SubHeading">H2</button> -->
+      
+      <button type="button" class="ql-bold editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="Bold <cmd+b>"><b>B</b></button>
+      <button type="button" class="ql-italic editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="Add italic text <cmd+i>"><i>I</i></button>
+      <button class="ql-underline editorButtonSpacing" aria-label="Underline" data-toggle="tooltip" data-placement="bottom" title="Underline"></button>
+      <!-- <button aria-label="Ordered List" class="ql-list editorButtonSpacing" type="button" value="ordered"></button> -->
+      <button aria-label="Unordered List" class="ql-list editorButtonSpacing" type="button" value="bullet" data-toggle="tooltip" data-placement="bottom" title="Bulleted list"></button>
+      <button aria-label="Insert Link" class="ql-link editorButtonSpacing" type="button" data-toggle="tooltip" data-placement="bottom" title="Insert link"></button>
+      <button type="button" [attr.id]="'quillmccs'+editorType" class="editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="mccs-input" *ngIf="isMccsRequired">mccs-input</button>
+      <button type="button" [attr.id]="'connectAgent'+editorType" class="editorButtonSpacing" data-toggle="tooltip" data-placement="bottom" title="connect-agent">Agent</button>
+      <button type="button buttonSecondary" (click)="saveData($event)" class="editorSave semi-bold" *ngIf="enableSave">Save</button>
+      <button type="button" (click)="onCancel($event)" class="editorCancel" *ngIf="enableCancel">Cancel</button>      
+    </div>
+    <div [attr.id]="'csquill'+editorType" class="editorBg editor-container"></div>
+  </div>

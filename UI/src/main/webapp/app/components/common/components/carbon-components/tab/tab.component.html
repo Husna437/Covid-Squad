@@ -1,0 +1,22 @@
+<div class="full-bg">
+    <nav data-tabs class="bx--tabs tabs-bg" role="navigation">
+        <div class="bx--tabs-trigger" tabindex="0">
+            <a href="javascript:void(0)" class="bx--tabs-trigger-text" tabindex="-1"></a>
+            <svg class="bx--dropdown__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+                <path d="M10 0L5 5 0 0z"></path>
+            </svg>
+        </div>
+        <ul class="bx--tabs__nav bx--tabs__nav--hidden" role="tablist">
+            <li *ngFor="let item of tabItems; let rowIdx = index"  class="bx--tabs__nav-item bx--tabs__nav-item--selected" [attr.data-target]="'.tab-' + rowIdx+1" role="presentation" >
+                <a tabindex="{{rowIdx}}" id="tab-link-{{rowIdx}}" class="bx--tabs__nav-link" href="javascript:void(0)" role="tab" [attr.aria-controls]="'tab-panel-'+rowIdx" aria-selected="true">{{item.name}}</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- The markup below is for demonstration purposes only -->
+    <div style="padding-top: 1rem;">
+        <div *ngFor="let item of tabItems; let rowIdx = index" 
+        id="tab-panel-{{rowIdx+ 1}}" class="tab-{{rowIdx+ 1}}" role="tabpanel" [attr.aria-labelledby] ="'tab-link-'+rowIdx+ 1" aria-hidden="false">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

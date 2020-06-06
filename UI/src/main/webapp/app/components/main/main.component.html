@@ -1,0 +1,10 @@
+<app-header role="banner"></app-header>
+<app-notifications></app-notifications>
+<app-modal></app-modal>
+<app-confirmation-modal #confirmationModal></app-confirmation-modal>
+<div class="container">
+    <div class="content" id="app-main-content">
+            <app-full-page-loading-indicator tabindex="-1" [attr.aria-label]="'LOADING_MAIN' | translate" class="visible" #fpli></app-full-page-loading-indicator>
+        <router-outlet></router-outlet>
+    </div>
+</div>

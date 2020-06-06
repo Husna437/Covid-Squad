@@ -1,0 +1,22 @@
+<div class="wrapper" *ngIf="notifications.length">
+	<div 
+		*ngFor="let notification of notifications" 
+		data-notification 
+		class="bx--inline-notification bx--inline-notification--{{notification.type}}" 
+		[attr.role]="notification.genre === 'alert' ? 'alert' : null"
+		[attr.aria-live]="notification.genre === 'polite' ? 'polite' : null"
+		>
+		<div class="bx--inline-notification__details">
+			<app-svg-icon 
+				class="bx--inline-notification__icon" 
+				carbonIcon="{{notification.type === 'success' ? 'checkmark': notification.type}}--glyph">
+			</app-svg-icon>
+			<div class="bx--inline-notification__text-wrapper">
+				<div class="bx--inline-notification__subtitle" [innerHTML]="notification.content"></div>
+			</div>
+		</div>
+		<button (click)="removeNotification(notification)" data-notification-btn class="bx--inline-notification__close-button" type="button">
+			<app-svg-icon class="bx--inline-notification__close-icon" [attr.aria-label]="'BUTTONS.CLOSE' | translate" carbonIcon="close"></app-svg-icon>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,143 @@
+@import "../../../../assets/less/_themes.less";
+@import "../../../../assets/less/_utils.less";
+
+:host {
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+
+	button {
+        &:extend(.clean-button);
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+        border-bottom: 1px solid @header-bg;
+		&[text] {
+			&:before {
+				content: attr(text);
+			}
+		}
+	}
+
+	.panel {
+		position: absolute;
+		width: 280px;
+		background-color: @secondaryBg;
+
+		&[hidden] {
+			visibility: hidden;
+		}
+	}
+
+	&.width-auto .panel {
+		width: auto;
+	}
+
+	&.open.h-panel{
+		background-color: @header-panel-bg;
+		.panel {
+            background-color: @header-panel-bg;
+            box-shadow: 2px 4px 6px 0 rgba(@appPanelShadow, 0.4);
+		}
+	}
+
+	&.pointed {
+		.arrow {
+			position: absolute;
+			z-index: 1;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			padding-left: 16px;
+			padding-bottom: 8px;
+			background-clip: content-box;
+            overflow: hidden;
+	
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 10px;
+				padding-bottom: 10px;
+				background-color: inherit;
+				border: 1px solid;
+				transform: rotate(45deg);
+				left: 2px;
+				top: 3px;
+                background-color: @secondaryBg;
+                border: 1px solid @primaryBorderColor;
+			}
+		}
+		.panel {
+            box-shadow: 2px 4px 6px 0 rgba(@appPanelShadow, 0.1);
+            border: 1px solid @primaryBorderColor;
+		}
+	}
+
+    &.center {
+        button[text] {
+			&:before {
+				padding-right: 10px;
+            }
+		}
+		.panel {
+			left: 0;
+		}
+    }
+
+	&.left {
+		button[text] {
+			flex-direction: row-reverse;
+			&:before {
+				padding-right: 10px;
+            }
+		}
+		.panel {
+			left: 0;
+		}
+	}
+
+	&.right {
+		button[text] {
+			&:before {
+				padding-right: 10px;
+			}
+		}
+		.panel {
+			right: 0;
+		}
+	}
+
+	&.top {
+		.arrow {
+			bottom: calc(100% - 7px);
+			transform: translateX(-50%) rotate(180deg);
+		}
+		.panel {
+			bottom: 100%;
+		}
+	}
+
+	&.bottom {
+		.arrow {
+			top: calc(100% - 7px);
+		}
+		.panel {
+			top: 100%;
+		}
+	}
+}
+
+.panel-class {
+    max-height: 300px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: @scrollbarColor;
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "DATA_TABLE": {
+        "ITEMS_PER_PAGE": "Items per page",
+        "NO_OF_ITEMS_PER_PAGE": "Number of items per page",
+        "PAGE_NUMBER_INPUT": "Page number input",
+        "OF": "of",
+        "ITEMS": "items",
+        "PAGES": "pages",
+        "SEARCH": "Search",
+        "ITEMS_SELECTED": "items selected",
+        "CANCEL": "Cancel",
+        "NO_ITEMS": "No items to display"
+    },
+    "SEARCH_BOX": {
+		"LABEL": "Search",
+		"CLEAR_BUTTON": "Clear input"
+    },
+    "OPTIONS_MENU": {
+		"ARIA_LABEL": "Options menu"
+    },
+    
+    
+    "VALIDATION_REQUIRED": "This field is required",
+    "NEXT": "Next",
+    "PREVIOUS": "Previous",
+    "SELECT_ENVIRONMENT": "Select Environment:",
+    "ENVIRONMENT": "Sandbox",
+    "CONFIRMATION": "Confirmation",
+    "LOGOUT": "Log out",
+    "REGION": "Region:",
+    "SANDBOX": "Sandbox",
+    "STAGING":"Staging",
+    "PRODUCTION": "Production"
+}

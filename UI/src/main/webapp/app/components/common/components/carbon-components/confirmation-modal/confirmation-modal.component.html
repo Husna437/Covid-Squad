@@ -1,0 +1,40 @@
+<div #modal id="modal-68ip52vvd2p" class="bx--modal" [class.bx--modal--danger]="isDanger">
+	<div class="bx--modal-container" [attr.aria-label]="title" aria-modal="true" role="dialog">
+		<div class="bx--modal-header">
+			<h2 class="bx--modal-header__heading bx--type-beta">{{ title }}</h2>
+			<button *ngIf="!hideCloseButton" (click)="onCloseButtonClick()" class="bx--modal-close" type="button" [attr.aria-label]="'MODAL.CLOSE' | translate">
+				<svg focusable="false" class="bx--modal-close__icon" width="10" height="10" viewBox="0 0 10 10"
+					 xmlns="http://www.w3.org/2000/svg">
+					<title>{{ "MODAL.CLOSE" | translate }}</title>
+					<path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z"
+						  fill-rule="nonzero"></path>
+				</svg>
+			</button>
+		</div>
+		<div class="bx--modal-content">
+			<div #ariaLiveRef class="aria-live" aria-live="assertive"></div>
+			<p #messageRef tabindex="-1" [innerHTML]="message"></p>
+		</div>
+		<div class="bx--modal-footer">
+			<button
+				*ngIf="secondaryButtonLabel && secondaryButtonLabel.trim().length > 0" 
+				(click)="onSecondaryButtonClick()"
+				class="bx--btn" 
+				[ngClass]="isDanger ? 'bx--btn--tertiary' : 'bx--btn--secondary'" 
+				type="button"
+				[attr.aria-label]="secondaryButtonLabel">
+				{{secondaryButtonLabel}}
+			</button>
+			<button 
+				#primaryButtonRef	
+				*ngIf="primaryButtonLabel && primaryButtonLabel.trim().length > 0"
+				(click)="onPrimaryButtonClick()" 
+				class="bx--btn"
+				[ngClass]="isDanger ? 'bx--btn--danger--primary' : 'bx--btn--primary'" 
+				type="button"
+				[attr.aria-label]="primaryButtonLabel">
+				{{primaryButtonLabel}}
+			</button>
+		</div>
+	</div>
+</div>

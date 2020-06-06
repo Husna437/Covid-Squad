@@ -1,0 +1,44 @@
+{
+	"extends": "../../../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../out-tsc/spec",
+		"baseUrl": "./",
+		"paths": {
+			"@cs/*": [
+				"*"
+			],
+			"@cs/core": [
+				"components/core"
+			],
+			"@cs/consts": [
+				"components/core/consts"
+			],
+			"@cs/common/*": [
+				"components/common/*"
+			],
+			"@cs/common": [
+				"components/common"
+			],
+			"@cs/main/*": [
+				"components/main/*"
+			],
+			"@cs/main": [
+				"components/main"
+			]
+		},
+		"module": "commonjs",
+		"target": "es5",
+		"types": [
+			"jasmine",
+			"node"
+		]
+	},
+	"files": [
+        "test.ts",
+        "polyfills.ts"
+  ],
+	"include": [
+		"**/*.spec.ts",
+		"**/*.d.ts"
+	]
+}

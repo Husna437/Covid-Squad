@@ -1,0 +1,68 @@
+@import "../../../../../assets/less/_variables.less";
+@import "../../../../../assets/less/_utils.less";
+@import "../../../../../assets/less/_themes.less";
+
+:host {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	flex-grow: 1;
+	overflow: hidden;
+	min-width: 500px;
+
+	& > .close-button {
+		&:extend(.clean-button);
+		position: absolute;
+		top: 0;
+		z-index: 2;
+		height: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		outline-offset: -2px;
+
+		&.has-text {
+			right: 0px;
+			padding: 0 10px;
+
+			span ~ app-svg-icon {
+				margin-left: 10px;
+			}
+		}
+
+		&:not(.has-text) {
+			width: 50px;
+			top: 0px;
+			right: 0px;
+
+			::ng-deep svg {
+				width: 14px;
+				height: 14px;
+				fill: @primaryBg;
+			}
+		}
+	}
+}
+
+.bx--modal-header, .bx--modal-content {
+    margin-bottom: 0;
+}
+
+.bx--modal-header {
+    padding: 24px 30px 0px 30px;
+}
+
+.bx--modal-content {
+	flex-grow: 1;
+	position: relative;
+	z-index: 1;
+
+	&.full-view {
+		height: auto;
+	}
+}
+.close-button {
+	font-size: @app-font - 6px;
+	text-decoration: underline;
+	color: @primaryBg;
+}

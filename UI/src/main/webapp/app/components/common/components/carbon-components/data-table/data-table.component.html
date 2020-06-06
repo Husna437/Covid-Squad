@@ -1,0 +1,238 @@
+<div class="bx--data-table-v2-container" data-table-v2>
+	<section class="bx--table-toolbar">
+        <div class="bx--batch-actions" aria-label="Table Action Bar" *ngIf="batchActions.length > 0">
+            <div class="bx--action-list  custom-batch-actions" *ngFor="let action of batchActions">
+                <button class="bx--btn bx--btn--sm bx--btn--ghost" type="button" (click)="batchActionClick(action.value)">
+                    {{action.name}}
+                </button>
+            </div>
+            <div class="bx--batch-summary">
+                <p class="bx--batch-summary__para" *ngIf= "!expandWithCheckbox">
+                    <span data-items-selected>3</span> {{"DATA_TABLE.ITEMS_SELECTED" | translate }}
+                 </p>
+                 <p class="bx--batch-summary__para" *ngIf= "expandWithCheckbox">
+                    <span data-items-selected>{{nestedSelectedCount}}</span> {{"DATA_TABLE.ITEMS_SELECTED" | translate }}
+                 </p>
+                <button (click)="cancelBatchActionClick()" #cancelBatchAction data-event="action-bar-cancel" class="bx--batch-summary__cancel">{{"DATA_TABLE.CANCEL" | translate }}</button>
+            </div>
+        </div>
+		<div class="bx--toolbar-search-container" *ngIf = "enableSearchBox">
+            <app-search-box *ngIf="!serverSideSearch" (textChanged)="onSearchTextChanged($event)"></app-search-box>
+            <app-search-box *ngIf="serverSideSearch" (textSubmit)="onSearchTextSubmit($event)"></app-search-box>
+        </div>
+        <div class = "bx--toolbar-content">
+            <div class="bx--toolbar-action" *ngIf="enableGhostButton">
+                <button class="bx--btn bx--btn--sm bx--btn--ghost" type = "button"
+                (click)="onGhostClick()">
+                {{ghostButtonText}}
+                    <app-svg-icon *ngIf = "ghostButtonImage !== ''" [carbonIcon] = "ghostButtonImage" class="bx--btn__icon"></app-svg-icon>
+                </button>
+            </div>
+            <div class= "bx--toolbar-action" *ngIf="enableRefresh">
+                <button class="bx--btn bx--btn--sm bx--btn--ghost" type = "button"
+                (click)= "onRefreshClick()">
+                {{refreshText}}
+                    <app-svg-icon carbonIcon="restart" class="bx--btn__icon"></app-svg-icon>
+                </button>
+            </div>
+            <div class="bx--toolbar-action"  *ngIf="enablePrimaryButton">
+                <button class="bx--btn bx--btn--sm bx--btn--primary" type = "button"
+                (click)="onPrimaryClick()">
+                {{primaryButtonText}}
+                    <app-svg-icon *ngIf = "primaryButtonImage !== ''" [carbonIcon] = "primaryButtonImage" class="bx--btn__icon"></app-svg-icon>
+                </button>
+            </div>
+        </div>
+	</section>
+	<div class="custom-scrollbar">
+		<table class="bx--data-table-v2">
+			<thead>
+			<tr>
+                <th *ngIf="isExpandable"></th>
+                <th *ngIf="batchActions.length > 0">
+                    <input data-event="select-all" id="bx--checkbox-0" class="bx--checkbox" type="checkbox" value="green" name="checkbox-0" (change)="handleAllCheckboxSelection($event)">
+                    <label for="bx--checkbox-0" class="bx--checkbox-label" aria-label="Label name"></label>
+                </th>
+				<th *ngFor="let header of headers; let i = index" [attr.width] = "header.width">
+					<button class="bx--table-sort-v2" [attr.data-event]="header.sortable === false ? null : 'sort'">
+						<span [class.bx--table-header-label]="i === 0">{{header.name}}</span>
+						<svg focusable="false" *ngIf="header.sortable !== false"
+							 class="bx--table-sort-v2__icon" width='10' height='5' viewBox='0 0 10 5' fill-rule='evenodd'>
+							<path d='M10 0L5 5 0 0z'></path>
+						</svg>
+					</button>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+                <tr *ngIf="(filteredRows$ | async).length == 0">                    
+                    <td  *ngIf="batchActions.length > 0" [attr.colspan]="headers.length + 1">No Items to Display</td>
+                    <td   *ngIf="batchActions.length == 0" [attr.colspan]="headers.length">No Items to Display</td>
+                </tr>
+			<ng-container *ngFor="let row of filteredRows$ | async | slice:displayRange.start:displayRange.end; let rowIdx = index">
+				<ng-container *ngIf="!row.expand">                  
+					<tr *ngIf="!row.metadata.colspan">
+                        <td *ngIf="isExpandable"></td>
+                        <td *ngIf="batchActions.length > 0" width = "3%">
+                            <input data-event="select" id="bx--checkbox-{{rowIdx+1}}" class="bx--checkbox" type="checkbox" value="green-{{rowIdx+1}}" name="checkbox-{{rowIdx+1}}">
+                            <label for="bx--checkbox-{{rowIdx+1}}" class="bx--checkbox-label" aria-label="Label name"></label>
+                        </td>
+						<td *ngFor="let cell of row.data; let cellIdx = index"  [attr.width] = "headers[cellIdx] ? headers[cellIdx].width : 0" [class.bx--table-overflow]="cellIdx === optionsColumnIndex ? 'true' : null">
+							<ng-container *ngIf="cellIdx !== optionsColumnIndex">
+                                <a id = "cellTag" *ngIf= "colClickIndex != null && colClickIndex == cellIdx" (click)="colClick(row)" class="clickable-row">
+                                    {{cell}}
+                                </a>
+                                <span *ngIf= "colClickIndex == null ||  colClickIndex != cellIdx">
+                                    <span *ngIf="row.metadata &&  row.metadata.imageIndex == cellIdx && row.metadata.imageClass"
+                                        [ngClass]= "row.metadata.imageClass">
+                                    </span>
+                                    <span *ngIf="row.metadata &&  row.metadata.imageIndex == cellIdx && row.metadata.image">
+                                        <app-svg-icon [carbonIcon]="row.metadata.image" [ngClass]= "row.metadata.svgClass" class="bx--btn__icon"></app-svg-icon>
+                                    </span>
+                                        {{cell}}
+                                </span>
+                                <span class="bx--tag bx--tag--ibm" *ngIf="cellIdx == row.metadata.cellTagIndex">{{row.metadata.cellTag}}</span>
+							</ng-container>
+							<ng-container *ngIf="cellIdx === optionsColumnIndex">
+                                <app-options-menu
+                                        [style.visibility]="row.metadata.optionsMenuItems  && row.metadata.optionsMenuItems.length > 0 ? 'visible' : 'hidden'"
+										id="data-table-options-for-{{rowIdx}}"
+										(actionTrigger)="onOptionsClick($event, rowIdx)"
+                                        flip="true"
+                                        name = "overflow-menu"
+                                        [options]="row.metadata.optionsMenuItems"
+                                        [disableOptionIndex] = "row.metadata.disabledOverflowMenuIndex"
+                                        [disabledOverflowMenuTitle] = "row.metadata.disabledOverflowMenuTitle"
+                                        [overflowMenuTooltipIndex] = "row.metadata.overflowMenuTooltipIndex"
+										iconPath="/assets/icons/overflow-menu-h.svg#overflow-menu-h">
+								</app-options-menu>
+							</ng-container>
+						</td>
+                    </tr>
+                    <tr *ngIf="row.metadata.colspan" [ngClass]= "row.metadata.class">
+                        <td [attr.colspan]="row.metadata.colspan" [innerHTML] = "row.metadata.colspandata | safeHtml">
+                        </td>
+                    </tr>
+				</ng-container>
+				<ng-container *ngIf="row.expand">
+					<tr *ngIf="!row.metadata.colspan" class="bx--parent-row-v2" [ngClass]="{'bx--expandable-row-v2': row.isExpanded , 'parent-with-child-rows': row.metadata.childData && row.isExpanded}">
+						<td class="bx--table-expand-v2">
+							<button (click)="expandRow(row, rowIdx + 1)" class="bx--table-expand-v2__button">
+								<svg focusable="false" class="bx--table-expand-v2__svg" width="8" height="12" viewBox="0 0 8 12" fill-rule="evenodd">
+									<path d="M0 10.6L4.7 6 0 1.4 1.4 0l6.1 6-6.1 6z"></path>
+								</svg>
+							</button>
+                        </td>
+                        <td *ngIf="batchActions.length > 0 && !expandWithCheckbox" width = "3%">
+                            <input data-event="select" id="bx--checkbox-{{rowIdx+1}}" class="bx--checkbox" type="checkbox" value="green-{{rowIdx+1}}" name="checkbox-{{rowIdx+1}}">
+                            <label for="bx--checkbox-{{rowIdx+1}}" class="bx--checkbox-label" aria-label="Label name"></label>
+                        </td>
+                        <td *ngIf="batchActions.length > 0 && expandWithCheckbox" width = "3%">
+                            <input data-event="select" id="bx--checkbox-{{rowIdx+1}}"  (change) = "handleParentCheckboxClick(rowIdx + 1, row.metadata)"
+                                class="bx--checkbox" type="checkbox" value="green-{{rowIdx+1}}" name="checkbox-{{rowIdx+1}}">
+                            <label for="bx--checkbox-{{rowIdx+1}}" class="bx--checkbox-label" aria-label="Label name"></label>
+                        </td>
+						<td *ngFor="let cell of row.data; let cellIdx = index"
+							[class.bx--table-overflow]="cellIdx === optionsColumnIndex ? 'true' : null">
+							<ng-container *ngIf="cellIdx !== optionsColumnIndex">
+                                <span *ngIf="row.metadata &&  row.metadata.imageIndex == cellIdx && row.metadata.imageClass"
+                                [ngClass]= "row.metadata.imageClass">
+                                </span>
+                                <span *ngIf="row.metadata &&  row.metadata.imageIndex == cellIdx && row.metadata.image">
+                                    <app-svg-icon [carbonIcon]="row.metadata.image" [ngClass]= "row.metadata.svgClass" class="bx--btn__icon"></app-svg-icon>
+                                </span>
+								{{cell}}
+							</ng-container>
+							<ng-container *ngIf="cellIdx === optionsColumnIndex">
+                                <app-options-menu
+                                        [style.visibility]="row.metadata.optionsMenuItems  && row.metadata.optionsMenuItems.length > 0 ? 'visible' : 'hidden'"
+										id="data-table-options-for-expand-{{rowIdx}}"
+										(actionTrigger)="onOptionsClick($event, rowIdx)"
+										flip="true"
+                                        [options]="row.metadata.optionsMenuItems"
+                                        [disableOptionIndex] = "row.metadata.disabledOverflowMenuIndex"
+                                        [disabledOverflowMenuTitle] = "row.metadata.disabledOverflowMenuTitle"
+                                        [overflowMenuTooltipIndex] = "row.metadata.overflowMenuTooltipIndex"
+                                        iconPath="/assets/icons/overflow-menu-h.svg#overflow-menu-h">
+								</app-options-menu>
+							</ng-container>
+						</td>
+					</tr>
+					<tr class="bx--expandable-row-v2" *ngIf="row.isExpanded && !row.metadata.childData">
+						<td [attr.colspan]="headers.length + 1" [innerHtml]="row.expand"></td>
+                    </tr>
+                    <ng-container *ngIf= "row.isExpanded &&  row.metadata.childData">
+                        <tr class="bx--expandable-row-v2" *ngFor="let childRow of row.metadata.childData; let childRowIdx = index">
+                            <td class="bx--table-expand-v2">
+                            
+                            </td>
+                            <td *ngIf="batchActions.length > 0" width = "3%">
+                                <input data-event="select" id="bx--checkbox-{{rowIdx + 1}}.{{childRowIdx+1}}"  (change) = "handleNestedCheckbox((rowIdx + 1), (childRowIdx+1), row.metadata.childData)"
+                                class="bx--checkbox" type="checkbox" value="green-{{rowIdx + 1}}.{{childRowIdx+ 1}}" name="checkbox-{{rowIdx + 1}}.{{childRowIdx+1}}">
+                                <label for="bx--checkbox-{{rowIdx + 1}}.{{childRowIdx+1}}" class="bx--checkbox-label" aria-label="Label name"></label>
+                            </td>
+                            <td *ngFor="let childData of childRow.data; let childColIdx = index">{{childData}}</td>
+                        </tr>
+                    </ng-container>
+                    <tr *ngIf="row.metadata.colspan" [ngClass]= "row.metadata.class">
+                        <td [attr.colspan]="row.metadata.colspan" [innerHTML] = "row.metadata.colspandata | safeHtml">
+                        </td>
+                    </tr>
+                </ng-container>
+			</ng-container>
+			</tbody>
+		</table>
+	</div>
+	<div class="bx--pagination" data-pagination [style.visibility]="filteredRows.length > 0 ? 'visible' : 'hidden'">
+		<div class="bx--pagination__left">
+			<span class="bx--pagination__text">Items Per Page</span>
+			<div class="bx--select bx--select--inline">
+				<label for="select-id-pagination-left" class="bx--visually-hidden">
+					{{ "DATA_TABLE.NO_OF_ITEMS_PER_PAGE" | translate}}
+				</label>
+				<select id="select-id-pagination-left" class="bx--select-input" data-items-per-page>
+					<option class="bx--select-option" value="10" selected>10</option>
+					<option class="bx--select-option" value="20">20</option>
+					<option class="bx--select-option" value="30">30</option>
+					<option class="bx--select-option" value="40">40</option>
+					<option class="bx--select-option" value="50">50</option>
+				</select>
+				<svg focusable="false" class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+					<path d="M10 0L5 5 0 0z"></path>
+				</svg>
+			</div>
+			<span class="bx--pagination__text">
+					<span>|&nbsp;</span>
+					<span data-displayed-item-range>
+						{{getNumberOfRows() === 0 ? '0' : displayRange.start + 1 }}-{{displayRange.end}}</span> Items
+				</span>
+		</div>
+		<div class="bx--pagination__right bx--pagination--inline">
+				<span class="bx--pagination__text">
+					<span data-displayed-page-number>{{currentPage}}</span> Of <span data-total-pages>{{numberOfPages}}</span> Pages
+				</span>
+			<button class="bx--pagination__button bx--pagination__button--backward" data-page-backward [attr.aria-label]="'BUTTONS.PREVIOUS_PAGE' | translate">
+				<svg focusable="false" class="bx--pagination__button-icon" width="8" height="12" viewBox="0 0 8 12" fill-rule="evenodd">
+					<path d="M7.5 10.6L2.8 6l4.7-4.6L6.1 0 0 6l6.1 6z"></path>
+				</svg>
+			</button>
+			<div class="bx--select bx--select--inline">
+				<label for="select-id-pagination-right" class="bx--visually-hidden">{{ "DATA_TABLE.PAGE_NUMBER_INPUT" | translate }}</label>
+				<select id="select-id-pagination-right" class="bx--select-input" data-page-number-input>
+					<option *ngFor="let pageNumber of getPageNumbering()" class="bx--select-option" value="{{pageNumber}}"
+							[attr.selected]="pageNumber === 1 ? true : null">
+						{{pageNumber}}
+					</option>
+				</select>
+				<svg focusable="false" class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+					<path d="M10 0L5 5 0 0z"></path>
+				</svg>
+			</div>
+			<button class="bx--pagination__button bx--pagination__button--forward" data-page-forward [attr.aria-label]="'BUTTONS.NEXT_PAGE' | translate">
+				<svg focusable="false" class="bx--pagination__button-icon" width="8" height="12" viewBox="0 0 8 12" fill-rule="evenodd">
+					<path d="M0 10.6L4.7 6 0 1.4 1.4 0l6.1 6-6.1 6z"></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+</div>

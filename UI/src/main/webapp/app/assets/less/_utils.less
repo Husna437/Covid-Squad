@@ -1,0 +1,79 @@
+@import "./_variables.less";
+@import "./_themes.less";
+
+.clean-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.sub-header {
+	padding-left: 10px;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	white-space: nowrap;
+	height: 50px;
+	align-items: center;
+	box-sizing: initial;
+
+	.title {
+		font-weight: bold;
+		font-size: @app-font - 6px;
+	}
+    border-bottom: 1px solid @primaryBorderColor;
+    background-color: @sectionBg;
+}
+
+.red-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.red-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.success-dot {
+    height: 10px;
+    width: 10px;
+    background-color: @successColor;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.error-dot {
+    height: 10px;
+    width: 10px;
+    background-color: @errorColor;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.warning-dot {
+    height: 10px;
+    width: 10px;
+    background-color: @warningColor;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.svg-active {
+    fill: @successColor;
+}
+
+.svg-inactive {
+    fill: @errorColor;
+}

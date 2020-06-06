@@ -1,0 +1,47 @@
+<p aria-hidden="true" [attr.id]="'label-' + randomNumber" class="label">{{label}}</p>
+<div 
+	#dropdown 
+	class="bx--dropdown" 
+	[ngClass]="{'bx--dropdown--open': isListboxVisible}">
+	<div class="select-value" [attr.id]="'select-value-' + randomNumber">
+		{{activeOptionLabel}}
+	</div>
+	<button 
+		#button 
+		(keydown)="buttonKeyDown($event)" 
+		(click)="toggleOptions()" 
+        tabindex="0" 
+        type = "button" 
+		[attr.aria-required]="required || null"
+		[attr.aria-describedby]="describedby || null"
+		[attr.aria-invalid]="invalid || null"
+		[attr.aria-labelledby]="'label-' + randomNumber + ' ' + 'select-value-' + randomNumber" 
+		[attr.aria-expanded]="isListboxVisible" 
+		[disabled]="!options.length || null"
+		aria-haspopup="listbox" 
+		class="bx--dropdown-text">
+		{{activeOptionLabel}}
+	</button>
+	<svg focusable="false" class="bx--dropdown__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+		<path d="M10 0L5 5 0 0z"></path>
+	</svg>
+	<ul 
+		#listbox 
+		(keyup)="listBoxKeyUp($event)" 
+		(keydown)="listBoxKeyDown($event)" 
+		tabindex="-1" 
+		role="listbox" 
+        [attr.aria-labelledby]="'label-' + randomNumber"
+        [attr.aria-activedescendant] = "currentOption && currentOption.id" 
+		[attr.aria-hidden]="!isListboxVisible" 
+		class="bx--dropdown-list">
+		<li 
+			[attr.id]="'li-' + i + '-' + randomNumber" 
+			*ngFor="let option of options; let i = index" 
+			role="option" 
+			(click)="optionClicked($event)"
+			class="bx--dropdown-item bx--dropdown-link">
+			{{ option }}
+		</li>
+	</ul>
+</div>

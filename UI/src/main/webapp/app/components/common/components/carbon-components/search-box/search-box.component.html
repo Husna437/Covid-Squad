@@ -1,0 +1,20 @@
+<div class="bx--form-item">
+    <div data-search role="search" class="bx--search bx--search--sm">
+        <app-svg-icon class="bx--search-magnifier" carbonIcon="search"></app-svg-icon> 
+        <form>
+            <label id="search-input-label-1" class="bx--label" for="search__input-1">{{ "SEARCH_BOX.LABEL" | translate }}</label>
+            <input 
+                [formControl]="searchControl" 
+                class="bx--search-input" type="text" 
+                [attr.id]="'search-' + uniqueID"
+                placeholder="Search" 
+                (keyup.enter)="submitSearch()">
+        </form>        
+        <button class="bx--search-close bx--search-close--hidden" (click) = "onClear()" [attr.title]="'SEARCH_BOX.CLEAR_BUTTON' | translate" [attr.aria-label]="'SEARCH_BOX.CLEAR_BUTTON' | translate">
+            <app-svg-icon carbonIcon="close--glyph"></app-svg-icon>
+        </button>
+    </div>
+</div>
+
+
+

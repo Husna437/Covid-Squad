@@ -1,0 +1,21 @@
+@import "../../../../../assets/less/_themes.less";
+:host {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(@body-color, 0.5);
+	&.visible {
+		display: flex;
+	}
+
+	&.initialized {
+		z-index: 10;
+		background-color: rgba(@body-color, 0.5);
+	}
+}

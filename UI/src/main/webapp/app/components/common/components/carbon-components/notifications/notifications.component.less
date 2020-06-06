@@ -1,0 +1,30 @@
+@import "../../../../../assets/less/_themes.less";
+@import "../../../../../assets/less/_variables.less";
+
+:host {
+	z-index: 9999;
+	left: 0;
+	right: 0;
+	height: 0;
+    text-align: center;
+    position: fixed;
+    top: 2%;
+
+	.wrapper {
+		flex-direction: column;
+		align-items: center;
+		display: inline-flex;
+		padding: 0 20px;
+		box-sizing: border-box;
+	}
+
+	.bx--inline-notification {
+		display: inline-flex;
+		text-align: left;
+		margin-bottom: 0;
+		&:first-child {
+			margin-top: 2px;
+		}
+		background-color: rgba(@secondaryBg, 0.9);
+	}
+}

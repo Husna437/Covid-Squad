@@ -1,0 +1,59 @@
+@import "../../../../assets/less/_themes";
+:host {
+    display: flex;
+    .container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        box-shadow: 0 1px 0 0 @creaticleArticle;
+        flex: 1;
+        .tags {
+            display: inline-flex;;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            .tag {
+                display: flex;
+                align-items: center;
+                padding: 0 0 0 10px;
+                margin-right: 8px;
+                height: 100%;
+                &.disabled {
+                    opacity: 0.8;
+                    padding-right: 10px;
+                }
+                .tag-label {
+                    word-break: break-word;
+                    padding: 5px 0;
+                }
+                button {
+                    padding: 0 10px;
+                    font-size: 1rem;
+                    margin: 0;
+                    border: 0;
+                    cursor: pointer;
+                    background-color: transparent;
+                }
+            }
+        }
+        input {
+            display: inline-flex;
+            background-color: transparent !important;
+            &:active, &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+
+.container-dark-background {
+    background: @secondaryInputControlBg !important;
+}
+
+.container-light-background {
+    background: @primaryInputControlBg !important;
+}
+
+.invalid {
+    box-shadow: 0 2px 0px 0px #e0182d;
+}

@@ -1,0 +1,18 @@
+
+<div id="tooltip-label" class="bx--tooltip__label" aria-describedby="unique-tooltip">
+    {{toolTipLabel}}
+    <div 
+        tabindex="0"
+        aria-labelledby="tooltip-label" 
+        data-tooltip-trigger 
+        [attr.data-tooltip-target] ="'#' + toolTipId" 
+        role="tooltip" 
+        class="bx--tooltip__trigger"
+        (click) = showToolTip()>
+        <app-svg-icon carbonIcon="info--outline"></app-svg-icon>
+    </div>
+  </div>
+  <div [attr.id] = "toolTipId" [attr.data-floating-menu-direction] ="toolTipDirection" class="bx--tooltip" data-avoid-focus-on-open>
+    <span class="bx--tooltip__caret"></span>
+    <p>{{toolTipInformation}}</p>
+  </div>

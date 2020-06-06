@@ -1,0 +1,43 @@
+@import "../../../../../assets/less/_themes.less";
+
+:host {
+	display: inline-block;
+	position: relative;
+	height: 100%;
+
+	[data-overflow-menu] {
+		font-size: 0;
+        display: inline-flex;
+        flex-direction: column;
+		align-items: center;
+		height: 100%;
+        cursor: pointer;
+    }
+}
+
+@supports (-ms-ime-align: auto) {
+    .bx--overflow-menu__icon {
+        width: auto; 
+    }  
+  }
+.bx--overflow-menu-options__btn {
+    position: relative !important;
+}
+
+::ng-deep {	
+	.bx--overflow-menu-options {
+		.bx--overflow-menu-options__option {
+			button:focus {
+				outline: none !important;
+			}
+			&.hidden {
+				display: none;
+			}
+		}
+	}
+}
+
+.disabled {
+    color: @disabledText;
+    cursor: default;
+}

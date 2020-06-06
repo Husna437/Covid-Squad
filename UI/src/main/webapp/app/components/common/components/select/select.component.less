@@ -1,0 +1,45 @@
+@import "../../../../assets/less/_variables.less";
+@import "../../../../assets/less/_themes.less";
+
+:host {
+
+	display: block;
+
+	.select-value {
+		display: none;
+	}
+
+	.bx--dropdown-text {
+		background-color: transparent;
+		width: 100%;
+        text-align: left;
+        font-size: @app-font - 6px !important;
+		font-weight: 400;
+		&:not(:disabled) {
+			cursor: pointer;
+		}
+	}
+
+	li.focused {
+		background-color: @miscBg;
+		outline: 1px solid transparent;
+		text-decoration: underline;
+	}
+
+	.label {
+		font-weight: 600;
+		font-size: @app-font - 6px;
+    }
+    
+    .bx--dropdown-link {
+        padding-bottom: 2rem;
+    }
+
+    .bx--dropdown {
+        max-width: 300px;
+    }
+
+    .bx--dropdown--open .bx--dropdown-list {
+        max-height: 13rem;
+    }
+}

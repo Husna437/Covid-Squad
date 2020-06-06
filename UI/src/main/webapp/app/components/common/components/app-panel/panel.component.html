@@ -1,0 +1,8 @@
+<button #panelbutton [attr.aria-label]="ariaLabel" [attr.aria-expanded]="panelIsVisible" (click)="toggleVisibility()" [attr.text]="buttonText || null">
+	<app-svg-icon *ngIf="iconSrc" [iconSrc]="iconSrc"></app-svg-icon>
+	<img *ngIf="iconURL" [src]="iconURL" />
+</button>
+<span class="arrow" [hidden]="!panelIsVisible"></span>
+<div class="panel" [hidden]="!panelIsVisible" (click)="onPanelClick()" [ngClass]="panelHeight ? 'panel-class' : ''">
+	<ng-content></ng-content>
+</div>

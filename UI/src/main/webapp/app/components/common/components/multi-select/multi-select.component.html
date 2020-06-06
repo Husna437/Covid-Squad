@@ -1,0 +1,75 @@
+<p aria-hidden="true" [attr.id]="'label-' + randomNumber" class="label">{{fieldLabel}}
+    <app-tool-tip
+        *ngIf = toolTipRequired
+        [toolTipInformation] = toolTipString
+        [toolTipDirection] = "toolTipPosition"
+        [toolTipLabel] = ""
+        [toolTipId] = "idToolTip">
+    </app-tool-tip>
+</p>
+<div 
+	#dropdown 
+    class="bx--dropdown"
+    [class.bx--dropdown--open] = "isListboxVisible"
+    [ngClass]="styleClass">
+	<div class="hidden" [attr.id]="'select-value-' + randomNumber">
+		{{
+			(
+				selectedOptionsLength() ? 
+					(('MULTI_SELECT.ITEMS_SELECTED' | translate: {data: selectedOptionsLength()}) + ' - ') 
+				: ''
+			) + label
+		}}
+    </div>
+	<div class="wrapper">
+        <div 
+            *ngIf="selectedOptionsLength() || (selectedOptionsLength() && selectedItem.length > 0)"	
+            (click)="clearSelections()"
+            role = "button" 
+            [attr.aria-label]="'MULTI_SELECT.CLEAR_SELECTED_ITEMS' | translate" 
+            class="cnt">
+            <span>{{ selectedOptionsLength() }}
+                <app-svg-icon carbonIcon="close"></app-svg-icon>
+            </span>
+        </div>
+        <div [ngClass] = "selectedOptionsLength() ? 'input-wrapper':''">
+            <input
+                #button 
+                (click)="toggleOptions()"
+                type = "button" 
+                (keyup)="buttonBoxKeyUp($event)" 
+                tabindex="0" 
+                type = "text" 
+                [(ngModel)]="selectedItem" 
+                (input) = "filterList()"
+                placeholder = "{{label}}"
+                [attr.aria-required]="required || null"
+                [attr.aria-describedby]="describedby || null"
+                [attr.aria-invalid]="invalid || null"
+                [attr.aria-labelledby]="'label-' + randomNumber + ' ' + 'select-value-' + randomNumber" 
+                [attr.aria-expanded]="isListboxVisible"
+                class = "bx--dropdown-text"
+            >
+        </div>
+		<svg focusable="false" class="bx--dropdown__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+			<path d="M10 0L5 5 0 0z"></path>
+		</svg>
+	</div>
+	<div 
+		#listbox 
+		(keyup)="listBoxKeyUp($event)" 
+		class="bx--dropdown-list">
+		<div *ngFor="let option of options; let i = index"  class="bx--dropdown-item bx--form-item bx--checkbox-wrapper">
+			<input 
+				[attr.tabindex]="isListboxVisible ? 0 : -1" 
+				[attr.id]="'li-checkbox' + i + '-' + randomNumber" 
+				class="bx--checkbox" 
+				type="checkbox" 
+				[checked]="option.selected"
+				(change)="onCheck($event, i)"
+				[name]="randomNumber + 'checkbox'" />
+			<label [attr.for]="'li-checkbox' + i + '-' + randomNumber" class="bx--checkbox-label">{{ option.value }}</label>
+		</div>
+    </div>
+</div>
+

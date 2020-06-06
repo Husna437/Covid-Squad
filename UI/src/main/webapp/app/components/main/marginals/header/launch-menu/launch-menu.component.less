@@ -1,0 +1,35 @@
+@import "../../../../../assets/less/_themes.less";
+@import "../../../../../assets/less/_variables.less";
+@import "../../../../../assets/less/_utils.less";
+
+:host{
+    display: flex;
+    align-items: center;
+}
+
+ .launch-items{
+    display: flex;    
+}
+
+.launch-menu {
+    padding-right: 32px;
+    font-size: @app-font - 6px;
+    color: @header-icons;
+    letter-spacing: 0;
+    text-align: right;
+    line-height: 18px;
+}
+
+app-svg-icon {
+    fill: @header-icons;
+    padding-left: 8px;
+    
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-auto {
+    cursor: default;
+}

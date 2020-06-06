@@ -1,0 +1,18 @@
+<div class="container" [ngClass]="styleClass" [ngStyle]="style">
+    <div class="tags" [ngStyle]="tagsStyle" [ngClass]="tagsStyleClass">
+        <div *ngFor="let tag of tags; let i = index" class="tag bx--tag bx--tag--ibm"
+             [ngClass]="disabled ? 'disabled' : null">
+            <span class="tag-label">{{tag}}</span>
+            <button *ngIf="!disabled" (click)="onTagRemove(i)" type="button">&times;</button>
+        </div>
+    </div>
+    <input #domInput type="text" class="bx--text-input"
+           [attr.id]="inputId ? inputId : null"
+           [(ngModel)]="input"
+           [disabled]="disabled"
+           [attr.placeholder]="placeholder ? placeholder : null"
+           [ngStyle]="inputStyle"
+           [ngClass]="inputStyleClass"
+           (keydown.enter)="onInputKeyupEnter($event); false"
+           (paste)="onInputPaste($event)"/>
+</div>

@@ -1,0 +1,160 @@
+@import "../../assets/less/_variables.less";
+@import "../../assets/less/_themes.less";
+.container {
+	flex-grow: 1;
+	position: relative;
+    z-index: 1;
+    margin-top: 48px;
+	.content {
+        flex-grow: 1;
+        padding-left: 5rem;
+        overflow-y: hidden;
+        overflow-x: hidden;
+	}
+}
+
+:host {
+	height: 100%;
+	display: flex;
+    flex-direction: column;
+}
+
+footer {
+    display: flex;
+    position: relative;
+	align-items: center;
+	bottom: 0;
+	height: @fheight;
+	width: 100%;
+	font-size: @app-font - 8px;
+	z-index: 100;
+    background-color: @secondaryBg;
+    .copyright {
+        margin-left: 1.2%;
+    }
+}
+
+:host ::ng-deep {
+	.sub-header {
+		flex-shrink: 0;
+		&:extend(.sub-header);
+		
+		button {
+			&:extend(.clean-button);
+			font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 50px;
+			min-width: 50px;
+			padding: 0 10px;
+			box-sizing: border-box;
+			outline-offset: -2px;
+
+			::ng-deep {
+				app-svg-icon {
+					&:first-child:not(:only-child) {
+						margin-right: 10px;
+					}
+					&:last-child:not(:only-child) {
+						margin-left: 10px;
+					}
+				}
+			}
+			fill: @primaryBg;
+
+			&.bx--tooltip__trigger {
+				&:before {
+					top: calc(100% - 7px);
+				}
+				&:after {
+					top: calc(100% - 3px);
+				}
+			}
+		}
+	}
+	.custom-scrollbar {
+        overflow-y: auto;
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+		&::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+			background-color: @scrollbarColor;
+		}
+	}
+	.expand--btn {
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+		text-decoration: underline;
+		padding: 0;
+		color: @primaryBg;
+    }
+
+    #articleEditorContent h3 {
+        font-weight : bold !important;
+        font-size: @app-font - 2px  !important;
+    }
+
+    #articleEditorContent h4 {
+        font-weight : bold !important;
+        font-size: @app-font - 4px !important;
+    }
+
+    #articleEditor ul {
+        list-style: disc !important;
+    } 
+
+    #articleEditorContent mccs-input {
+        color : @mccsInputColor !important;
+        font-weight : bold;
+    }
+    
+    #articleEditorContent connect-agent::before {
+        content: "<connect-to-agent></connect-to-agent>";
+    }
+
+    .preview-content-text h3 {
+        font-weight : bold !important;
+        font-size: @app-font - 2px  !important;
+    }
+
+    .preview-content-text h4 {
+        font-weight : bold !important;
+        font-size: @app-font - 4px !important;
+    }
+
+    .preview-content-text ul {
+        list-style: disc !important;
+        padding-left: 3em;
+    } 
+
+    .preview-content-text mccs-input {
+        color : @mccsInputColor !important;
+        font-weight : bold;
+    }
+
+    .preview-content-text connect-agent::before {
+        content: "<connect-to-agent></connect-to-agent>";
+    }
+
+   .ql-editor {
+        font-family: "ibm-plex-sans" !important;
+        font-size: 14px;
+    }
+    .form-required {
+        order: 3;
+        color: @formErrorColor;
+        font-weight: 400;
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        margin: 0.75rem 0 0;
+        overflow: hidden;
+        line-height: 1.5;
+    }
+    
+    .semi-bold {
+        font-weight: 600;
+    }
+}

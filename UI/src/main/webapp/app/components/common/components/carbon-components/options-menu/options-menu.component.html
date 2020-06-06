@@ -1,0 +1,28 @@
+<div #menu
+    data-overflow-menu
+    (click) = "openMenu()"
+	role="button" 
+	aria-haspopup="true" 
+	[attr.aria-controls]="listID" 
+	[attr.aria-label]="ariaLabel || 'OPTIONS_MENU.ARIA_LABEL' | translate" 
+	tabindex="0">
+	<ng-content></ng-content>
+	<svg aria-hidden="true" class="bx--overflow-menu__icon" width="3" height="15" viewBox="0 0 3 15">
+        <g fill-rule="evenodd">
+          <circle cx="1.5" cy="1.5" r="1.5" />
+          <circle cx="1.5" cy="7.5" r="1.5" />
+          <circle cx="1.5" cy="13.5" r="1.5" />
+        </g>
+      </svg>
+	<ul [attr.data-floating-menu-direction]="menuDirection" id="{{listID}}" [ngClass]="{'bx--overflow-menu--flip': flip}" class="bx--overflow-menu-options" tabindex="-1">
+		<li *ngFor="let option of options; let i = index"
+			class="bx--overflow-menu-options__option{{ option.class ? (' ' + option.class) : '' }}"
+			[ngClass]="{'hidden': option.hidden, 'bx--overflow-menu-options__option--danger': option.danger}"
+            role="menuitem">
+            <button [attr.title]= "i== overflowMenuTooltipIndex ? disabledOverflowMenuTitle: ''" *ngIf="disableOptionIndex  && i+1 == disableOptionIndex" class="bx--overflow-menu-options__btn disabled">
+                {{ option.title }}
+            </button>
+			<button [attr.title]= "i== overflowMenuTooltipIndex ? disabledOverflowMenuTitle: ''" *ngIf="!(disableOptionIndex  && i+1 == disableOptionIndex)" (click)="callAction(option.actionName || i)" class="bx--overflow-menu-options__btn">{{ option.title }}</button>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,98 @@
+
+@import "../../../../assets/less/_themes";
+@import "../../../../assets/less/_variables";
+
+.ql-snow .ql-stroke {
+	stroke : black !important;
+	stroke-width: 1.5 !important;
+}
+
+.ql-snow button.ql-active .ql-stroke {
+	stroke : @btn-blue !important;
+	stroke-width: 1.5 !important;
+}
+
+.editor-container {
+  height: auto;
+  min-height: 300px;
+}
+
+.container {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.container a {
+  font-family: @font-family;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+	width : auto !important;
+}
+
+.ql-tooltip {
+	margin-left : 4% !important;
+}
+
+.ql-snow .myql-picker.myql-header {
+    width: 98px;
+}
+
+.editorCancel {
+	float:right !important;
+	font-weight: 700;
+	font-family: @font-family;
+	height : 35px !important;
+	color: @primaryBg !important;
+	margin-right: 2%;
+}
+
+.editorSave {
+	float:right !important;
+	padding: 0% 1% !important;
+	color: @primaryBg !important;
+	font-weight: 700;
+	font-family: @font-family;
+	height : 35px !important;
+	border-width: 2px 1px 1px !important;
+	border-color: @primaryBg !important;
+    border-style: solid !important;
+    font-size: @app-font - 6px;
+}
+
+
+.editorBg {
+	background-color : @editorGrey;
+}
+
+.editorToolbar {
+	background-color :@btnWhiteBackground;
+	padding-left: 1.1% !important;
+    padding-right: 4.9% !important;
+}
+
+.editorButtonSpacing {
+	border: 0.5px solid @body-text-color !important;
+    margin-right: 0.5%;
+    height: 35px !important;
+    padding: 0.8%   !important;
+    font-size : calc(@font-max*0.46) !important;
+    font-weight: 700;
+}
+
+.editorButtonSpacing svg {
+	width: 17px !important;
+    height: 17px !important;
+}
+
+.ql-snow .ql-out-bottom, .ql-snow .ql-out-top {
+	visibility :initial !important;
+}
+
+connect-agent::before {
+    content: "<connect-to-agent></connect-to-agent>";
+}
+
+.ql-editor.ql-blank::before {
+	font-style : normal !important;
+}

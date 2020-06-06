@@ -1,0 +1,35 @@
+<div class= "content">
+    <div class= "content-header">
+        <app-select 
+        label="State"
+        [defaultOption]="states[0]"
+        [options]="states"
+        class = "dropDown" 
+        (optionSelected)="onStateSwitch($event)">
+        </app-select>
+        <app-select 
+        label="District" 
+        [defaultOption]="districts[0]"
+        [options]="districts"
+        class = "dropDown" 
+        (optionSelected)="onDistrictSwitch($event)">
+        </app-select>
+        <app-select 
+        label="Circle" 
+        [defaultOption]="circle[0]"
+        [options]="circle"
+        class = "dropDown" 
+        (optionSelected)="onCircleSwitch($event)">
+        </app-select>
+        <button class="bx--btn bx--btn--sm bx--btn--primary" type = "button"
+            (click)="getDetails()">Get Details
+        </button>   
+    </div>
+    <div class="content-body">
+        <app-data-table
+            [headers]="headers"
+            [rows]="rows"
+            [enableSearchBox]="true"          
+        ></app-data-table>    
+    </div>  
+</div>

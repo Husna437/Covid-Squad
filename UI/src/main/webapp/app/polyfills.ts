@@ -1,0 +1,148 @@
+/**
+ * This file includes polyfills needed by Angular and is loaded before the app.
+ * You can add your own extra polyfills to this file.
+ *
+ * This file is divided into 2 sections:
+ *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+ *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *      file.
+ *
+ * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
+ * automatically update themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
+ * Edge >= 13 on the desktop, and iOS 10 and Chrome on mobile.
+ *
+ * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
+ */
+
+/***************************************************************************************************
+ * BROWSER POLYFILLS
+ */
+
+/** IE9, IE10 and IE11 requires all of the following polyfills. **/
+import "core-js/es6/symbol";
+import "core-js/es6/object";
+import "core-js/es6/function";
+import "core-js/es6/parse-int";
+import "core-js/es6/parse-float";
+import "core-js/es6/number";
+import "core-js/es6/math";
+import "core-js/es6/string";
+import "core-js/es6/date";
+import "core-js/es6/array";
+import "core-js/es6/regexp";
+import "core-js/es6/map";
+import "core-js/es6/weak-map";
+import "core-js/es6/set";
+
+import "core-js/es7/object";
+import "core-js/es7/array";
+
+/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+import "classlist.js";  // Run `npm install --save classlist.js`.
+
+/** IE10 and IE11 requires the following for the Reflect API. */
+import "core-js/es6/reflect";
+
+/** IE10 and IE11 requires the following for the Carbon Design System. */
+(function () {
+
+	if ( typeof (<any>window).CustomEvent === "function" ) { return false; }
+
+	function CustomEvent ( event, params ) {
+		params = params || { bubbles: false, cancelable: false, detail: undefined };
+		const evt = document.createEvent( "CustomEvent" );
+		evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+		return evt;
+	}
+
+	CustomEvent.prototype = (<any>window).Event.prototype;
+
+	(<any>window).CustomEvent = CustomEvent;
+})();
+
+if (typeof Element.prototype.closest !== "function") {
+	Element.prototype.closest = function closestElement(selector) {
+		const doc = this.ownerDocument;
+		for (let traverse = this; traverse && traverse !== doc; traverse = traverse.parentNode) {
+			if (traverse.matches(selector)) {
+				return traverse;
+			}
+		}
+		return null;
+	};
+}
+
+const matchesFuncName = ["matches", "webkitMatchesSelector", "msMatchesSelector"].filter(
+	name => typeof Element.prototype[name] === "function"
+)[0];
+
+if (matchesFuncName !== "matches") {
+	Element.prototype.matches = Element.prototype[matchesFuncName];
+}
+
+const missingNativeDOMTokenListToggleForce = (() => {
+	const elem = document.createElement("div");
+	const randomClass = `_random_class_${Math.random()
+	.toString(36)
+	.slice(2)}`;
+	elem.classList.toggle(randomClass, false);
+	return elem.classList.contains(randomClass);
+})();
+if (missingNativeDOMTokenListToggleForce) {
+	(() => {
+		const origToggle = DOMTokenList.prototype.toggle;
+		DOMTokenList.prototype.toggle = function toggleDOMTokenList(name, add) {
+			return arguments.length < 2 || this.contains(name) === !add ? origToggle.call(this, name) : add;
+		};
+	})();
+}
+
+/** DOM methods */
+(function () {
+	if (Element.prototype.hasOwnProperty("remove")) {
+		return;
+	}
+	Object.defineProperty(Element.prototype, "remove", {
+		configurable: true,
+		enumerable: true,
+		writable: true,
+		value: function remove() {
+			if (this.parentNode !== null) {
+				this.parentNode.removeChild(this);
+			}
+		}
+	});
+})();
+
+
+/** Evergreen browsers require these. **/
+// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
+import "core-js/es7/reflect";
+
+
+/** Inert polyfill is used for a11y modals. **/
+import "wicg-inert";
+
+/**
+ * Required to support Web Animations `@angular/platform-browser/animations`.
+ * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+ **/
+// import "web-animations-js";  // Run `npm install --save web-animations-js`.
+
+
+
+/***************************************************************************************************
+ * Zone JS is required by default for Angular itself.
+ */
+import "zone.js/dist/zone";  // Included with Angular CLI.
+
+
+
+/***************************************************************************************************
+ * APPLICATION IMPORTS
+ */
+/**
+ * The 'intl' polyfill is no longer required for Angular 5.0+.
+ */
+// import "intl";
+// import "intl/locale-data/jsonp/en";

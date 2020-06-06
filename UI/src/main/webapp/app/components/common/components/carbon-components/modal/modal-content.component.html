@@ -1,0 +1,16 @@
+<div class="bx--modal-header" *ngIf="title">
+        <p class="bx--modal-header__heading">{{ title }}</p>        
+</div>
+<button 
+	#closeBtn
+	*ngIf="this.closeText || this.hasCloseButton"
+	[attr.aria-label]="this.closeText || ('MODAL.CLOSE' | translate)" 
+	(click)="closeModal()" 
+	class="close-button" 
+	[ngClass]="{'has-text': closeText}">
+	<span *ngIf="closeText">{{closeText}}</span>
+	<app-svg-icon *ngIf="hasCloseButton" carbonIcon="close"></app-svg-icon>
+</button>
+<div class="bx--modal-content custom-scrollbar" [ngClass]="{'full-view': !title }">
+	<ng-content></ng-content>
+</div>

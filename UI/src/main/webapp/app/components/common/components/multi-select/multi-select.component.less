@@ -1,0 +1,140 @@
+@import "../../../../assets/less/_variables.less";
+@import "../../../../assets/less/_themes.less";
+
+:host {
+	display: block;
+    .label {
+		font-weight: 600;
+		font-size: @app-font - 6px;
+    }
+	.bx--dropdown {
+		max-width: 300px;
+		cursor: default;
+
+		&.bx--dropdown--open .bx--dropdown-list {
+			max-height: 229px;
+			visibility: visible;
+		}
+
+		.wrapper {
+            position: relative;
+
+            .input-wrapper {
+                padding-left : 50px;
+            }
+			.cnt {
+				display: inline-block;
+				background: none;
+				border: 0;
+				margin-right: 5px;
+				cursor: pointer;
+                font-size: @app-font - 6px;
+	
+				span {
+					display: inline-block;
+					border-radius: 10px;
+					background-color: @primaryBg;
+					color: white;
+					padding: 2px 6px;
+					white-space: nowrap;
+					vertical-align: middle;
+					display: flex;
+					font-size: @app-font - 6px;
+
+					app-svg-icon {
+						margin-left: 5px;
+					}
+					
+					::ng-deep {
+						svg {
+							fill: white;
+							width: 8px;
+							margin-left: 2px;
+						}
+					}
+				}
+			}
+
+			div.cnt {
+				position: absolute;
+				padding: 5px;
+				left: calc(1rem - 5px);
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+		}
+    }
+
+	.hidden {
+		display: none;
+	}
+
+	.bx--dropdown-text {
+		background-color: transparent;
+        text-align: left;
+        width : 100%;
+		font-weight: 400;
+        line-height: 1;
+        outline: none;
+        font-size: @app-font - 6px !important;
+
+		&:not(:disabled) {
+			cursor: pointer;
+		}
+
+		.cnt {
+			visibility: hidden;
+			vertical-align: top;
+		}
+    }
+    
+	.bx--dropdown-list {
+		overflow-y: scroll;
+		visibility: hidden;
+		transition: max-height 300ms cubic-bezier(0, 0, 0.25, 1), visibility 300ms cubic-bezier(0, 0, 0.25, 1);
+
+		.bx--dropdown-item {
+			padding: 0 !important;
+			flex-shrink: 0;
+		}
+
+		.bx--checkbox-wrapper {
+			margin: 0;
+
+			.bx--checkbox:focus + .bx--checkbox-label {
+				background-color: @miscBg;
+				outline: 1px solid transparent;
+				text-decoration: underline;
+			}
+
+			.bx--checkbox-label {
+				padding: 1rem 1rem 1rem 2.5rem;
+				display: block;
+				width: 100%;
+
+				&:hover {
+					background-color: @miscBg;
+					outline: 1px solid transparent;
+					text-decoration: underline;
+				}
+
+				&::before {
+					left: 1rem;
+				}
+
+				&::after {
+					left: 1.3125rem;
+				}
+			}
+		}
+	}
+}
+
+.dark-background {
+    background: @secondaryInputControlBg !important;
+}
+
+.light-background {
+    background: @primaryInputControlBg !important;
+}

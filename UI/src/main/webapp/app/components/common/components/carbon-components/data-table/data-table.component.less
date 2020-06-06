@@ -1,0 +1,148 @@
+@import "../../../../../assets/less/_themes.less";
+@import "../../../../../assets/less/_utils.less";
+:host {
+	display: block;
+	padding: 48px 0 44px;
+}
+.bx--data-table-v2-container {
+	padding-top: 0;
+	position: relative;
+	overflow-x: visible;
+	max-height: 100%;
+	display: flex;
+
+	.custom-scrollbar {
+        width: 100%;
+        overflow-y: hidden;
+        overflow-x: hidden;
+	}
+    .clickable-row {
+        cursor: pointer;
+    }
+
+	.bx--data-table-v2  {
+		border-bottom-color: @primaryBorderColor;
+
+		tr:hover td:first-of-type {
+            border-left-color: @secondaryBoderColor;
+		}
+
+		tr:hover td {			
+            background-color: @miscBg;
+            border-top-color: @secondaryBoderColor;
+            border-bottom-color: @secondaryBoderColor;
+		}
+		
+		thead {
+			background-color: @miscBg;
+		}
+
+		th, td {
+			border-top-color: @primaryBorderColor;
+            word-break: break-all;
+			&:first-of-type, &:last-of-type {
+				border-left-color: @primaryBorderColor;
+			}
+		}
+	}
+
+	.bx--table-sort-v2:focus svg {
+			outline-color: @secondaryBoderColor;
+            fill: @secondaryBoderColor;
+    }
+
+	.bx--select--inline .bx--select-input {
+			color: @secondaryBoderColor;
+	}
+
+	.bx--select__arrow {
+			fill: @secondaryBoderColor;
+	}
+
+	.bx--table-toolbar  {
+		position: absolute;
+		top: -48px;
+		left: 0;
+		right: 0;
+
+		::ng-deep app-svg-icon.bx--search-close {
+			height: 16px;
+			width: 16px;
+			top: calc(50% - 8px);
+		}
+	}
+
+	.bx--pagination {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -40px;
+		border-color: @primaryBorderColor;
+	}
+	.bx--expandable-row-v2 {
+		td:first-child {
+		    border-left: 1px solid @secondaryBoderColor;
+		}
+		td:last-child {
+			border-right: 1px solid @secondaryBoderColor;
+		}
+		&:hover td {
+			background: none;
+		}
+		&.bx--parent-row-v2 td {
+			border-top: 1px solid @secondaryBoderColor;
+		}
+		&.bx--parent-row-v2:hover td {
+			border-bottom: 0;
+		}
+		&:not(.bx--parent-row-v2) td {
+			border-top: none;
+			border-bottom: 1px solid @secondaryBoderColor;
+		}
+		&:not(.bx--parent-row-v2):hover td {
+			border-top: 0;
+		}
+		.bx--table-expand-v2__button {
+			svg {
+				transform: rotate(90deg);
+			}
+		}
+	}
+}
+
+.parent-with-child-rows {
+	border-bottom: 1px solid @secondaryBoderColor;
+}
+
+app-options-menu {
+	cursor: pointer;
+	::ng-deep app-svg-icon {
+		height: 24px;
+		width: 48px;
+    }
+}
+.bx--toolbar-content {
+    svg {
+        fill: @secondaryBg !important;
+    }   
+}
+
+td[colspan] {
+    background: @miscBg;
+    text-align: center;
+}
+
+.custom-batch-actions .bx--btn--sm {
+    padding: 0 1rem !important;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { //IE 11 
+    .bx--toolbar-action {
+        width: auto !important; 
+    }
+
+    .bx--table-sort-v2__icon {
+        width: 2px;
+    }
+
+}
